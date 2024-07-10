@@ -1,5 +1,8 @@
 import express from "express"
 import cors from "cors"
+import ownerRouter from "./routes/owner.routes.js"
+import userRouter from "./routes/user.routes.js"
+import productRouter from "./routes/product.routes.js"
 
 const app = express();
 
@@ -16,8 +19,7 @@ app.use(express.urlencoded(
     }))
 
 
-app.get("/",(req, res) => {
-    res.send("Everthing is working fine !!")
-})
-
+app.use("/e-commerce/api/v1", ownerRouter)
+app.use("/e-commerce/api/v1/", userRouter)
+app.use("/e-commerce/api/v1/", productRouter)
 export {app}
