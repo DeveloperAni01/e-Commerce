@@ -1,7 +1,9 @@
 import dotenv from "dotenv"
 import { app } from "./app.js"
 import { connectToDB } from "./db/db.js"
+import debug from "debug"
 
+const debuger = debug("development:index")
 
 dotenv.config({
     path: "./env"
@@ -11,9 +13,9 @@ dotenv.config({
 connectToDB()
     .then(() => {
         app.on("error", (err) => {
-            console.log("error: ", err)
+           debuger("error: ", err)
             throw err
         })
-        app.listen(process.env.PORT || 8000, () => console.log("server listeninng on PORT: ", process.env.PORT))
+        app.listen(process.env.PORT || 8000, () => debuger("server listeninng on PORT: ", process.env.PORT))
     } )
-    .catch((Error) => console.log("Mongodb on error"))
+    .catch((Error) => debuger("Mongodb on error"))
